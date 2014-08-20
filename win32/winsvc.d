@@ -13,11 +13,6 @@ pragma(lib, "advapi32");
 
 private import win32.w32api, win32.windef;
 
-static assert (_WIN32_WINNT_ONLY,
-	"win32.winsvc is available only if version WindowsNTonly, WindowsXP, "
-	"Windows2003 or WindowsVista is set");
-
-
 // FIXME: check Windows version support
 
 const TCHAR[]
@@ -187,10 +182,10 @@ struct SERVICE_TABLE_ENTRYW {
 }
 alias SERVICE_TABLE_ENTRYW* LPSERVICE_TABLE_ENTRYW;
 
-alias HANDLE SC_HANDLE;
-alias HANDLE* LPSC_HANDLE;
+mixin DECLARE_HANDLE!("SC_HANDLE");
+alias SC_HANDLE* LPSC_HANDLE;
 alias void* SC_LOCK;
-alias DWORD SERVICE_STATUS_HANDLE;
+mixin DECLARE_HANDLE!("SERVICE_STATUS_HANDLE");
 
 extern (Windows) {
 	alias void function(DWORD) LPHANDLER_FUNCTION;
